@@ -2,25 +2,27 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { recipegen } from 'RecipeApp\components\recipegen.js';
+//import { recipegen } from 'RecipeApp\components\recipegen.js';
 
 //import useCachedResources from './hooks/useCachedResources';
 //import useColorScheme from './hooks/useColorScheme';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './screens/LoginScreen'
 
 
   //const isLoadingComplete = useCachedResources();
   //const colorScheme = useColorScheme();
   //const [current, setCurrent] = useState("Main");
   // <Image source={{uri: 'https://imgur.com/a/yEq4Kbv'}}       style={{width: 200, height: 200}} />
+const Stack = createNativeStackNavigator();
 
 
 function MainScreen( {navigation} ) {
   return(
     <View style={{alignItems:'center', backgroundColor:'blue', padding: '10px'}}>
       <Text style={{fontSize:'40', color: 'dark brown', fontWeight: 'bold', textAlign:'center'}}>
-        Recipe Records
+        Rolling Recipes
       </Text>
       <Button
         title= "About"
@@ -51,8 +53,9 @@ function AboutScreen( {navigation} ) {
         </Text>
 
       </View>
-      <Image source={{uri: 'https://imgur.com/a/yEq4Kbv'}}
-          style={{alignItems: 'center', justifyContent: 'center'}}
+      <Image
+        style={{alignItems: 'center', justifyContent: 'center', height:'20%', width: '20%' }}
+        source={{uri: 'https://i.imgur.com/vv4hFRq.png'}}
       />
       <Button
         alignItems="right"
@@ -89,11 +92,6 @@ function RecipeScreen( {navigation} ) {
       />
       <Text style={{fontWeight:'20'}}> (recipe) </Text>
       <Button
-        alignItems="center"
-        title= "Add Recipe"
-        onPress={currentRecipe => setCurrentRecipe(RecipeGen())}
-      ></Button>
-      <Button
         alignItems="right"
         title= "Back"
         onPress={() => navigation.goBack()}
@@ -102,33 +100,48 @@ function RecipeScreen( {navigation} ) {
   )
 };
 
-function RecipeScreen( {navigation} ) {
+function RecipeListScreen( {navigation} ) {
   return (
-    </RecipeGen>
-    <Button
-      alignItems="right"
-      title= "Back"
-      onPress={() => navigation.goBack()}
-    ></Button>
+
+
+    <View>
+      <Text>Recipe List</Text>
+      <RecipeGen />
+      <Button
+        alignItems="right"
+        title= "Back"
+        onPress={() => navigation.goBack()}
+      />
+    </View>
   )
 };
 
-const Stack = createNativeStackNavigator();
+
 
 function App() {
   return (
     <NavigationContainer>
+
       <Stack.Navigator>
+        <Stack.Screen
+          name= "Login To Your Profile"
+          component= {LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
         <Stack.Screen
           name="Menu"
           component={MainScreen}
           options={{
-            title: "App Home",
+            title: "Rolling Recipes",
             headerStyle: {
               backgroundColor: '#800080',
               flexDirection: 'stretch'
             },
             headerTitleAlign: 'center',
+            headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: 'bold',
             },
@@ -137,7 +150,7 @@ function App() {
           name="About"
           component={AboutScreen}
           options={{
-            title: "App About",
+            title: "About",
             headerStyle: {
               backgroundColor: '#800080',
             },
@@ -160,6 +173,7 @@ function App() {
               fontWeight: 'bold',
             },
           }} />
+
       </Stack.Navigator>
     </NavigationContainer>
   )

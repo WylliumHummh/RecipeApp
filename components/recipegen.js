@@ -101,5 +101,5 @@ const RecipeGen = (props) => {
     },
   });
 
-export default recipegen;
 }
+export default recipegen;
